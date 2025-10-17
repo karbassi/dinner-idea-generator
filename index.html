@@ -13,69 +13,327 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #000;
             min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Starfield background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
         }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 60px 40px;
-            max-width: 600px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        /* Central logo */
+        .logo {
             text-align: center;
+            z-index: 10;
+            position: relative;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #2d3748;
+        .logo h1 {
+            font-size: 6rem;
+            font-weight: 900;
+            font-style: italic;
+            background: linear-gradient(45deg, #ff6b35, #f7931e, #fdc830, #4facfe, #00f2fe, #a8e063, #56ab2f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+            transform: perspective(500px) rotateX(10deg);
+            letter-spacing: 0.1em;
             margin-bottom: 20px;
-            line-height: 1.2;
         }
 
-        .emoji {
+        .logo-subtitle {
+            color: #fff;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin-top: -20px;
+        }
+
+        /* Orbital items */
+        .orbital-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .orbital-item {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .orbital-item:hover {
+            transform: scale(1.2);
+        }
+
+        .orbital-item:hover .item-icon {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .item-icon {
             font-size: 4rem;
-            margin-bottom: 30px;
-            display: block;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
         }
 
-        p {
-            font-size: 1.1rem;
-            color: #4a5568;
-            line-height: 1.6;
-            margin-bottom: 15px;
+        .item-label {
+            color: #fdc830;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            white-space: nowrap;
         }
 
-        .highlight {
-            color: #667eea;
-            font-weight: 600;
+        /* Positioned items (like planets in Space Jam) */
+        .item-1 { top: 10%; left: 20%; }
+        .item-2 { top: 15%; right: 15%; }
+        .item-3 { top: 35%; left: 10%; }
+        .item-4 { top: 30%; right: 10%; }
+        .item-5 { bottom: 35%; left: 15%; }
+        .item-6 { bottom: 30%; right: 20%; }
+        .item-7 { bottom: 15%; left: 25%; }
+        .item-8 { bottom: 20%; right: 15%; }
+        .item-9 { top: 50%; left: 5%; }
+        .item-10 { top: 50%; right: 5%; }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 100;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 40px 30px;
+        .footer-links {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ff6b35;
+            text-decoration: underline;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #fdc830;
+        }
+
+        .footer-text {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 3rem;
             }
 
-            h1 {
+            .logo-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .item-icon {
+                font-size: 2.5rem;
+            }
+
+            .item-label {
+                font-size: 0.7rem;
+            }
+
+            .orbital-item {
+                transform: scale(0.8);
+            }
+
+            .orbital-item:hover {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
                 font-size: 2rem;
             }
 
-            .emoji {
-                font-size: 3rem;
+            .logo-subtitle {
+                font-size: 0.7rem;
+            }
+
+            .item-icon {
+                font-size: 2rem;
+            }
+
+            .item-label {
+                font-size: 0.6rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Starfield -->
+    <div class="stars" id="starfield"></div>
+
+    <!-- Main container -->
     <div class="container">
-        <span class="emoji">🍽️</span>
-        <h1>Dinner Idea Generator</h1>
-        <p>Never wonder <span class="highlight">"What's for dinner?"</span> again.</p>
-        <p>Get inspired with creative meal ideas tailored to your preferences and ingredients.</p>
+        <!-- Orbital items -->
+        <div class="orbital-container">
+            <div class="orbital-item item-1">
+                <div class="item-icon">🍕</div>
+                <div class="item-label">Press for Pizza</div>
+            </div>
+
+            <div class="orbital-item item-2">
+                <div class="item-icon">�</div>
+                <div class="item-label">Pasta Central</div>
+            </div>
+
+            <div class="orbital-item item-3">
+                <div class="item-icon">🌮</div>
+                <div class="item-label">The Lineup</div>
+            </div>
+
+            <div class="orbital-item item-4">
+                <div class="item-icon">🍔</div>
+                <div class="item-label">Burger Planet</div>
+            </div>
+
+            <div class="orbital-item item-5">
+                <div class="item-icon">🍱</div>
+                <div class="item-label">Bento Box</div>
+            </div>
+
+            <div class="orbital-item item-6">
+                <div class="item-icon">🥗</div>
+                <div class="item-label">Stellar Souvenirs</div>
+            </div>
+
+            <div class="orbital-item item-7">
+                <div class="item-icon">🍜</div>
+                <div class="item-label">Site Map</div>
+            </div>
+
+            <div class="orbital-item item-8">
+                <div class="item-icon">🥘</div>
+                <div class="item-label">Behind the Jam</div>
+            </div>
+
+            <div class="orbital-item item-9">
+                <div class="item-icon">🍲</div>
+                <div class="item-label">Soup Station</div>
+            </div>
+
+            <div class="orbital-item item-10">
+                <div class="item-icon">🥙</div>
+                <div class="item-label">Warner Studio Store</div>
+            </div>
+        </div>
+
+        <!-- Central logo -->
+        <div class="logo">
+            <h1>DINNER JAM</h1>
+            <div class="logo-subtitle">What's For Dinner?</div>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Tag/in</a>
+            <a href="#">Accessibility</a>
+            <a href="#">AdChoices</a>
+        </div>
+        <div class="footer-text">
+            DINNER JAM, characters, names, and all related indicia<br>
+            are trademarks of Hungry People™ © 2025
+        </div>
+    </footer>
+
+    <script>
+        // Generate starfield
+        function createStarfield() {
+            const starfield = document.getElementById('starfield');
+            const numberOfStars = 200;
+
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+
+                // Random position
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+
+                // Random size
+                const size = Math.random() * 3 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+
+                // Random animation delay
+                star.style.animationDelay = Math.random() * 3 + 's';
+
+                starfield.appendChild(star);
+            }
+        }
+
+        // Add click handlers to orbital items
+        document.querySelectorAll('.orbital-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const label = this.querySelector('.item-label').textContent;
+                alert(`Welcome to ${label}! This feature is coming soon.`);
+            });
+        });
+
+        // Initialize
+        createStarfield();
+    </script>
 </body>
 </html>
